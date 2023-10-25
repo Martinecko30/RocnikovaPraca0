@@ -12,7 +12,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="res\Shaders\" />
+      <None Remove="res\Shaders\shader.frag" />
+      <Content Include="res\Shaders\shader.frag">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="res\Shaders\shader.vert" />
+      <Content Include="res\Shaders\shader.vert">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

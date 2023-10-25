@@ -5,10 +5,10 @@ public class ModelData
     public float[] verticies;
     public float[] textureCoord;
     public float[] normals;
-    public float[] indices;
+    public int[] indices;
     public float furthestPoint;
 
-    public ModelData(float[] verticies, float[] textureCoord, float[] normals, float[] indices, float furthestPoint)
+    public ModelData(float[] verticies, float[] textureCoord, float[] normals, int[] indices, float furthestPoint)
     {
         this.verticies = verticies ?? throw new ArgumentNullException(nameof(verticies));
         this.textureCoord = textureCoord ?? throw new ArgumentNullException(nameof(textureCoord));
