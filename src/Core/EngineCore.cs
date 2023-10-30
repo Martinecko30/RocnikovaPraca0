@@ -38,33 +38,42 @@ public class EngineCore : GameWindow
         }
         );
 
-    private RawModel rawModel;
     // ===
 
     private Loader loader = new Loader();
     private Stopwatch timer;
 
+    private List<Shader> shaders = new();
     private Shader shader;
 
-    private Texture texture;
+    private List<TexturedModel> texturedModels = new();
     
     
 
     protected override void OnLoad()
     {
         base.OnLoad();
-
-        rawModel = loader.LoadToVAO(modelData);
         
         // Configure Shaders
         shader = new Shader("res\\Shaders\\shader.vert", "res\\Shaders\\shader.frag");
         
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        
-        texture = new Texture("res\\Textures\\wall.jpg");
-        texture.Use(TextureUnit.Texture0);
-        shader.SetInt("texture0", 0);
 
+        texturedModels.Add(
+            new(
+                    loader.LoadToVAO(modelData),
+                    new List<Texture>()
+                    {
+                        new("res\\Textures\\wall.jpg"),
+                        new("res\\Textures\\awesomeface.png")
+                    },
+                    shader.Handle
+                )
+            );
+        
+        shader.SetInt("texture1", 0);
+        shader.SetInt("texture2", 1);
+        
         timer = new Stopwatch();
         timer.Start();
     }
@@ -81,10 +90,19 @@ public class EngineCore : GameWindow
         
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
+        Dictionary<int, TexturedModel> shaderBatch = new();
         
-        GL.BindVertexArray(rawModel.VAOID);
+        foreach (var model in texturedModels)
+        {
+            if(model.ShaderReference == shader.Handle)
+                
+            
+            GL.BindVertexArray(model.RawModel.VAOID);
+
+            for (int i = 0; i < model.Textures.Count; i++)
+                model.Textures[i].Use((TextureUnit)((int)All.Texture0 + i));
+        }
         
-        texture.Use(TextureUnit.Texture0);
         shader.Use();
         
         // Code

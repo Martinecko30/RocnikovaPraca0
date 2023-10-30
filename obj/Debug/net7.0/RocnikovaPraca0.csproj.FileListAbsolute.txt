@@ -33,3 +33,4 @@ F:\Csharp apps\RocnikovaPraca0\bin\Debug\net7.0\res\Shaders\shader.frag
 F:\Csharp apps\RocnikovaPraca0\bin\Debug\net7.0\res\Shaders\shader.vert
 F:\Csharp apps\RocnikovaPraca0\bin\Debug\net7.0\StbImageSharp.dll
 F:\Csharp apps\RocnikovaPraca0\bin\Debug\net7.0\res\Textures\wall.jpg
+F:\Csharp apps\RocnikovaPraca0\bin\Debug\net7.0\res\Textures\awesomeface.png

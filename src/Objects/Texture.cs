@@ -13,28 +13,26 @@ public class Texture
     {
         textureID = GL.GenTexture();
         
-        GL.ActiveTexture(TextureUnit.Texture0);
+        //GL.ActiveTexture(TextureUnit.Texture0);
         GL.BindTexture(TextureTarget.Texture2D, textureID);
         
         StbImage.stbi_set_flip_vertically_on_load(1);
 
         using (Stream stream = File.OpenRead(filePath))
         {
-            ImageResult image = ImageResult.FromStream(stream);
+            ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
             
             Width = image.Width;
             Height = image.Height;
-
-            //var idk = image.Comp;
             
             GL.TexImage2D(
                 TextureTarget.Texture2D, 
                 0, 
-                PixelInternalFormat.Rgb, 
+                PixelInternalFormat.Rgba, 
                 image.Width, 
                 image.Height, 
                 0, 
-                PixelFormat.Rgb,
+                PixelFormat.Rgba,
                 PixelType.UnsignedByte,
                 image.Data
                 );
