@@ -19,8 +19,15 @@ namespace RocnikovaPraca0
                 // Flags = ContextFlags.ForwardCompatible,
             };
 
-            using var window = new EngineCore(GameWindowSettings.Default, nativeWindowSettings);
-            window.Run();
+            try
+            {
+                using var window = new EngineCore(GameWindowSettings.Default, nativeWindowSettings);
+                window.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
         }
     }
 }

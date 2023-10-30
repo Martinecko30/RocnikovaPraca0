@@ -1,25 +1,52 @@
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace RocnikovaPraca0.Shaders;
 
 public class Shader : IDisposable
 {
     public int Handle;
-    private int shaderHandle;
+    private int vertexShaderHandle, fragShaderHandle;
 
-    public Shader(string shaderPath, ShaderType type)
+    private Dictionary<string, int> uniformLocations;
+
+    
+    public Shader(string vertexShaderPath, string fragmentShaderPath)
     {
-        string shaderText = File.ReadAllText(shaderPath);
-        
-        shaderHandle = GL.CreateShader(type);
-        GL.ShaderSource(shaderHandle, shaderText);
-        
-        CompileShader(shaderHandle);
+        string shaderSource = File.ReadAllText(vertexShaderPath);
+        vertexShaderHandle = GL.CreateShader(ShaderType.VertexShader);
+        GL.ShaderSource(vertexShaderHandle, shaderSource);
+        CompileShader(vertexShaderHandle);
 
-        CreateProgram();
+        shaderSource = File.ReadAllText(fragmentShaderPath);
+        fragShaderHandle = GL.CreateShader(ShaderType.FragmentShader);
+        GL.ShaderSource(fragShaderHandle, shaderSource);
+        CompileShader(fragShaderHandle);
+
+        Handle = GL.CreateProgram();
         
-        GL.DetachShader(Handle, shaderHandle);
-        GL.DeleteShader(shaderHandle);
+        GL.AttachShader(Handle, vertexShaderHandle);
+        GL.AttachShader(Handle, fragShaderHandle);
+        
+        LinkProgram();
+
+        uniformLocations = new();
+        
+        GL.GetProgram(Handle, GetProgramParameterName.ActiveUniforms, out var numberOfUniforms);
+
+        for (int i = 0; i < numberOfUniforms; i++)
+        {
+            string key = GL.GetActiveUniform(Handle, i, out _, out _);
+            int location = GL.GetUniformLocation(Handle, key);
+            uniformLocations.Add(key, location);
+        }
+        
+        
+        
+        GL.DetachShader(Handle, vertexShaderHandle);
+        GL.DeleteShader(vertexShaderHandle);
+        GL.DetachShader(Handle, fragShaderHandle);
+        GL.DeleteShader(fragShaderHandle);
     }
 
     private void CompileShader(int shader)
@@ -34,18 +61,15 @@ public class Shader : IDisposable
         }
     }
 
-    private void CreateProgram()
+    private void LinkProgram()
     {
-        Handle = GL.CreateProgram();
-        
-        GL.AttachShader(Handle, shaderHandle);
         GL.LinkProgram(Handle);
         
         GL.GetProgram(Handle, GetProgramParameterName.LinkStatus, out int success);
         if (success == 0)
         {
             string infoLog = GL.GetProgramInfoLog(Handle);
-            throw new Exception($"Error occurred whilst creating Program {Handle}.\n\n{infoLog}");
+            throw new Exception($"Error occurred whilst linking Program {Handle}.\n\n{infoLog}");
         }
     }
     
@@ -54,9 +78,41 @@ public class Shader : IDisposable
         GL.UseProgram(Handle);
     }
     
+    [Obsolete("It's unsafe to use this function to get attributes\nAssign attributes location in VBO")]
     public int GetAttribLocation(string attribName)
     {
         return GL.GetAttribLocation(Handle, attribName);
+    }
+
+    public int GetUniformLocation(string uniformName)
+    {
+        return GL.GetUniformLocation(Handle, uniformName);
+    }
+    
+    public void SetInt(string name, int data)
+    {
+        GL.UseProgram(Handle);
+        GL.Uniform1(uniformLocations[name], data);
+    }
+
+        
+    public void SetFloat(string name, float data)
+    {
+        GL.UseProgram(Handle);
+        GL.Uniform1(uniformLocations[name], data);
+    }
+
+        
+    public void SetMatrix4(string name, Matrix4 data)
+    {
+        GL.UseProgram(Handle);
+        GL.UniformMatrix4(uniformLocations[name], true, ref data);
+    }
+
+    public void SetVector3(string name, Vector3 data)
+    {
+        GL.UseProgram(Handle);
+        GL.Uniform3(uniformLocations[name], data);
     }
     
     

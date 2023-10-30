@@ -1,19 +1,17 @@
 namespace RocnikovaPraca0.Objects;
 
-public class ModelData
+public struct ModelData
 {
-    public float[] verticies;
-    public float[] textureCoord;
-    public float[] normals;
-    public int[] indices;
-    public float furthestPoint;
+    public float[] Verticies;
+    public float[] TextureCoord;
+    public float[] Normals;
+    public int[] Indices;
 
-    public ModelData(float[] verticies, float[] textureCoord, float[] normals, int[] indices, float furthestPoint)
+    public ModelData(float[] verticies, float[] textureCoord, float[] normals, int[] indices)
     {
-        this.verticies = verticies ?? throw new ArgumentNullException(nameof(verticies));
-        this.textureCoord = textureCoord ?? throw new ArgumentNullException(nameof(textureCoord));
-        this.normals = normals ?? throw new ArgumentNullException(nameof(normals));
-        this.indices = indices ?? throw new ArgumentNullException(nameof(indices));
-        this.furthestPoint = furthestPoint;
+        this.Verticies = verticies ?? throw new ArgumentNullException(nameof(verticies));
+        this.TextureCoord = textureCoord ?? throw new ArgumentNullException(nameof(textureCoord));
+        this.Normals = normals ?? throw new ArgumentNullException(nameof(normals));
+        this.Indices = indices ?? throw new ArgumentNullException(nameof(indices));
     }
 }

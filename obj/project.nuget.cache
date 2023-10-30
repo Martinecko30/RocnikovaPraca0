@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "me2u3vRUfXNxPq+vQ0QZAjs+OEEIk0hbuZXNbhoKso7mlnsD7aNbvuEtBQP2NgfLhboDA1iPZS6z7a8tXKiEvw==",
+  "dgSpecHash": "Mir9Xg6GM6GmMpBuZg8R5SVK9ScSRjvcnb90kBvm9oe1wz13c3TmNRSFf7IFP2/UmoUEJlkst0Pr14TpAZ3Qgw==",
   "success": true,
   "projectFilePath": "F:\\Csharp apps\\RocnikovaPraca0\\RocnikovaPraca0.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\bytva\\.nuget\\packages\\opentk.windowing.common\\4.8.1\\opentk.windowing.common.4.8.1.nupkg.sha512",
     "C:\\Users\\bytva\\.nuget\\packages\\opentk.windowing.desktop\\4.8.1\\opentk.windowing.desktop.4.8.1.nupkg.sha512",
     "C:\\Users\\bytva\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.8.1\\opentk.windowing.graphicslibraryframework.4.8.1.nupkg.sha512",
+    "C:\\Users\\bytva\\.nuget\\packages\\stbimagesharp\\2.27.13\\stbimagesharp.2.27.13.nupkg.sha512",
     "C:\\Users\\bytva\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
