@@ -7,8 +7,8 @@ Samotný projekt nie je veľmi velký a obsahuje niečo cez minimum aby spĺňal
 Čo obsahuje tento projekt
 - Hlavný program
 - Renderer (kód na vykreslovanie)
- * Shadery
- * Textúry
+ - Shadery
+ - Textúry
 
 ## Čo som sa naučil
 Naučil som sa pracovať s knižnicou OpenTK čo prenáša funkcie OpenGL do jazyka C#. Samotné schopnosti sú:
